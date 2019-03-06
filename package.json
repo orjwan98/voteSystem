@@ -1,0 +1,23 @@
+{
+  "name": "votesystem",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/orjwan98/voteSystem.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/orjwan98/voteSystem/issues"
+  },
+  "homepage": "https://github.com/orjwan98/voteSystem#readme",
+  "dependencies": {
+    "env2": "^2.2.2",
+    "pg": "^7.8.1"
+  }
+}
