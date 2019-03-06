@@ -1,0 +1,26 @@
+{
+  "name": "votesystem",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/orjwan98/voteSystem.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/orjwan98/voteSystem/issues"
+  },
+  "homepage": "https://github.com/orjwan98/voteSystem#readme",
+  "dependencies": {
+    "env2": "^2.2.2",
+    "express": "^4.16.4",
+    "nodemon": "^1.18.10",
+    "pg": "^7.8.1"
+  }
+}
