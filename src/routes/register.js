@@ -18,7 +18,7 @@ exports.post = registerHandler = (req, res) => {
               console.log(err);
             }
           } else {
-            res.send({ success: true });
+            res.send({ signedUp: true });
           }
         });
       }

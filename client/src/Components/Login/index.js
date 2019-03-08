@@ -1,13 +1,9 @@
 import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
 import PropTypes from "prop-types";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import FormControl from "@material-ui/core/FormControl";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
 import Paper from "@material-ui/core/Paper";
@@ -46,15 +42,22 @@ const styles = theme => ({
   },
   title: {
     textAlign: "center"
+  },
+  span: {
+    color: "blue",
+    textDecoration: "underline",
+    "&:hover": {
+      cursor: "pointer"
+    }
   }
 });
 
-class Register extends Component {
+class Login extends Component {
   state = {
     username: "",
     password: "",
-    registered: null,
-    signedUp: null
+    logged: null,
+    yesUser: true
   };
   handleUsername = e => {
     this.setState({ username: e.target.value });
@@ -70,54 +73,27 @@ class Register extends Component {
       alert("field cannot be empty!");
     } else {
       axios
-        .post("/register", {
+        .post("/login", {
           username: this.state.username,
           password: this.state.password
         })
         .then(res => {
-          const resStatus = res.data;
-          if (resStatus.registered) {
-            this.setState({
-              registered: resStatus.registered
-            });
-          } else if (resStatus.signedUp) {
-            this.setState({ signedUp: resStatus.signedUp });
-          } else {
-            console.log(res.data);
-          }
+          console.log(res);
         });
     }
   };
 
   goLogin = (history, e) => {
-    history.push("/login");
+    history.push("/register");
   };
   render() {
     const { classes, history } = this.props;
 
-    const registered = this.state.registered ? (
-      <Typography variant="subtitle1">
-        username already exists.<br />
-        <a
-          onClick={() => {
-            this.goLogin(history);
-          }}
-          href="#"
-        >
-          Login instead
-        </a>
-      </Typography>
-    ) : null;
-
     return (
       <main className={classes.main}>
         <Paper className={classes.paper}>
-          <Typography
-            component="subtitle"
-            variant="h5"
-            className={classes.title}
-          >
-            Register
+          <Typography variant="h5" className={classes.title}>
+            Log in
           </Typography>
           <form className={classes.form}>
             <FormControl margin="normal" required fullWidth>
@@ -147,18 +123,28 @@ class Register extends Component {
               className={classes.submit}
               onClick={this.handleSubmit}
             >
-              Register
+              Log in
             </Button>
           </form>
         </Paper>
-        {registered}
+        <Typography variant="subtitle1" className={classes.title}>
+          Don't have an account? &nbsp;
+          <span
+            className={classes.span}
+            onClick={() => {
+              this.goLogin(history);
+            }}
+          >
+            Register now.
+          </span>
+        </Typography>
       </main>
     );
   }
 }
 
-Register.propTypes = {
+Login.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(Register);
+export default withStyles(styles)(Login);
