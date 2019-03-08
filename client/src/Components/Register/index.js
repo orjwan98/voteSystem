@@ -52,7 +52,9 @@ const styles = theme => ({
 class Register extends Component {
   state = {
     username: "",
-    password: ""
+    password: "",
+    registered: null,
+    signedUp: null
   };
   handleUsername = e => {
     this.setState({ username: e.target.value });
@@ -73,16 +75,48 @@ class Register extends Component {
           password: this.state.password
         })
         .then(res => {
-          console.log(res.data);
+          const resStatus = res.data;
+          if (resStatus.registered) {
+            this.setState({
+              registered: resStatus.registered
+            });
+          } else if (resStatus.signedUp) {
+            this.setState({ signedUp: resStatus.signedUp });
+          } else {
+            console.log(res.data);
+          }
         });
     }
   };
+
+  goLogin = (history, e) => {
+    history.push("/login");
+  };
   render() {
-    const { classes } = this.props;
+    const { classes, history } = this.props;
+
+    const registered = this.state.registered ? (
+      <Typography variant="subtitle1">
+        username already exists.<br />
+        <a
+          onClick={() => {
+            this.goLogin(history);
+          }}
+          href="#"
+        >
+          Login instead
+        </a>
+      </Typography>
+    ) : null;
+
     return (
       <main className={classes.main}>
         <Paper className={classes.paper}>
-          <Typography component="h1" variant="h5" className={classes.title}>
+          <Typography
+            component="subtitle"
+            variant="h5"
+            className={classes.title}
+          >
             Register
           </Typography>
           <form className={classes.form}>
@@ -117,6 +151,7 @@ class Register extends Component {
             </Button>
           </form>
         </Paper>
+        {registered}
       </main>
     );
   }
