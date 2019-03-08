@@ -56,8 +56,7 @@ class Login extends Component {
   state = {
     username: "",
     password: "",
-    logged: null,
-    yesUser: true
+    noUser: false
   };
   handleUsername = e => {
     this.setState({ username: e.target.value });
@@ -78,17 +77,26 @@ class Login extends Component {
           password: this.state.password
         })
         .then(res => {
-          console.log(res);
+          const resStatus = res.data;
+          if (resStatus.noUser) {
+            this.setState({ noUser: resStatus.noUser });
+          } else {
+            const { history } = this.props;
+            if (resStatus.logged) {
+              history.push("/");
+            }
+          }
         });
     }
   };
 
-  goLogin = (history, e) => {
-    history.push("/register");
-  };
   render() {
     const { classes, history } = this.props;
-
+    const noUser = this.state.noUser ? (
+      <Typography variant="subtitle1" className={classes.title}>
+        user or password doesn't exist.
+      </Typography>
+    ) : null;
     return (
       <main className={classes.main}>
         <Paper className={classes.paper}>
@@ -138,6 +146,7 @@ class Login extends Component {
             Register now.
           </span>
         </Typography>
+        {noUser}
       </main>
     );
   }
