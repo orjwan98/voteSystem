@@ -1,8 +1,12 @@
+// const path = require("path");
 const express = require("express");
 const app = express();
+var bodyParser = require("body-parser");
+const routes = require("./routes/index.js");
 
-app.get("/", (req, res) => {
-  res.send("basic express server is set up");
-});
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+app.use(routes);
 
 module.exports = app;
