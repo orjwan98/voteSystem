@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/orjwan98/voteSystem#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
     "env2": "^2.2.2",
     "express": "^4.16.4",
     "nodemon": "^1.18.10",
