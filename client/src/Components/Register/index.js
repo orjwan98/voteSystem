@@ -64,7 +64,7 @@ class Register extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    if (this.state.username === "") {
+    if (this.state.username === "" || this.state.password === "") {
       alert("field cannot be empty!");
     } else {
       axios
@@ -73,7 +73,7 @@ class Register extends Component {
           password: this.state.password
         })
         .then(res => {
-          console.log(res);
+          console.log(res.data);
         });
     }
   };
