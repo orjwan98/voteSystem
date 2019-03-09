@@ -18,7 +18,7 @@ exports.post = login = (req, res) => {
           if (err) {
             console.log(err);
           } else if (!passwordsMatch) {
-            console.log("passwords don't match");
+            res.send({ noUser: true });
           } else {
             const id = data[0].id;
             jwt.sign({ id: id }, SECRET, function(err, token) {
