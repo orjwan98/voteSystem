@@ -1,7 +1,7 @@
 const bcrypt = require("bcryptjs");
 const register = require("../queries/register");
 
-exports.post = registerHandler = (req, res) => {
+module.exports = registerHandler = (req, res) => {
   const { username, password } = req.body;
   bcrypt.genSalt(10, function(err, salt) {
     bcrypt.hash(password, salt, function(hashErr, hashed) {
