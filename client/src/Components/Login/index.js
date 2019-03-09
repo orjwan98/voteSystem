@@ -34,7 +34,7 @@ const styles = theme => ({
     backgroundColor: theme.palette.secondary.main
   },
   form: {
-    width: "100%", // Fix IE 11 issue.
+    width: "100%",
     marginTop: theme.spacing.unit
   },
   submit: {
@@ -49,6 +49,9 @@ const styles = theme => ({
     "&:hover": {
       cursor: "pointer"
     }
+  },
+  warning: {
+    color: "red"
   }
 });
 
@@ -90,11 +93,18 @@ class Login extends Component {
     }
   };
 
+  goRegister = (history, e) => {
+    history.push("/register");
+  };
+
   render() {
     const { classes, history } = this.props;
     const noUser = this.state.noUser ? (
-      <Typography variant="subtitle1" className={classes.title}>
-        user or password doesn't exist.
+      <Typography
+        variant="subtitle1"
+        className={[classes.title, classes.warning]}
+      >
+        username or password isn't correct.
       </Typography>
     ) : null;
     return (
@@ -140,7 +150,7 @@ class Login extends Component {
           <span
             className={classes.span}
             onClick={() => {
-              this.goLogin(history);
+              this.goRegister(history);
             }}
           >
             Register now.
