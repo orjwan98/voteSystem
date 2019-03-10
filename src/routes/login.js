@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const SECRET = process.env.SECRET;
 require("env2")("config.env");
 
-exports.post = login = (req, res) => {
+module.exports = login = (req, res) => {
   const { username, password } = req.body;
   checkPassword(username, (err, data) => {
     if (err) {
