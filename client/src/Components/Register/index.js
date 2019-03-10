@@ -1,13 +1,9 @@
 import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
 import PropTypes from "prop-types";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import FormControl from "@material-ui/core/FormControl";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
 import Paper from "@material-ui/core/Paper";
@@ -46,6 +42,20 @@ const styles = theme => ({
   },
   title: {
     textAlign: "center"
+  },
+  span: {
+    color: "blue",
+    textDecoration: "underline",
+    "&:hover": {
+      cursor: "pointer"
+    }
+  },
+  warning: {
+    color: "red"
+  },
+
+  msg: {
+    color: "green"
   }
 });
 
@@ -81,9 +91,14 @@ class Register extends Component {
               registered: resStatus.registered
             });
           } else if (resStatus.signedUp) {
-            this.setState({ signedUp: resStatus.signedUp });
+            this.setState({ signedUp: resStatus.signedUp }, () => {
+              const { history } = this.props;
+              setTimeout(() => {
+                history.push("/login");
+              }, 2000);
+            });
           } else {
-            console.log(res.data);
+            console.log(res, "something happened");
           }
         });
     }
@@ -96,27 +111,24 @@ class Register extends Component {
     const { classes, history } = this.props;
 
     const registered = this.state.registered ? (
-      <Typography variant="subtitle1">
+      <Typography
+        variant="subtitle1"
+        className={[classes.title, classes.warning]}
+      >
         username already exists.<br />
-        <a
-          onClick={() => {
-            this.goLogin(history);
-          }}
-          href="#"
-        >
-          Login instead
-        </a>
+      </Typography>
+    ) : null;
+
+    const signedUp = this.state.signedUp ? (
+      <Typography variant="subtitle1" className={[classes.title, classes.msg]}>
+        Registered Successfully! redirect to Login in 2 seconds.<br />
       </Typography>
     ) : null;
 
     return (
       <main className={classes.main}>
         <Paper className={classes.paper}>
-          <Typography
-            component="subtitle"
-            variant="h5"
-            className={classes.title}
-          >
+          <Typography variant="h5" className={classes.title}>
             Register
           </Typography>
           <form className={classes.form}>
@@ -151,7 +163,19 @@ class Register extends Component {
             </Button>
           </form>
         </Paper>
+        <Typography variant="subtitle1" className={classes.title}>
+          Already have an account? &nbsp;
+          <span
+            className={classes.span}
+            onClick={() => {
+              this.goLogin(history);
+            }}
+          >
+            Login
+          </span>
+        </Typography>
         {registered}
+        {signedUp}
       </main>
     );
   }
