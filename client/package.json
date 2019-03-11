@@ -11,6 +11,7 @@
     "react-scripts": "2.1.5"
   },
   "scripts": {
+    "start": "SKIP_PREFLIGHT_CHECK=true react-scripts start",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
