@@ -5,7 +5,7 @@ module.exports = getData = (req, res) => {
     if (err) {
       console.log(err);
     } else {
-      res.send({ logged: true, allPosts: data });
+      res.send({ logged: true, allPosts: data, id: res.id.id });
     }
   });
 };
