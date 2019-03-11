@@ -5,7 +5,8 @@ import Post from "../Post";
 class Home extends Component {
   state = {
     logged: null,
-    allPosts: null
+    allPosts: null,
+    id: null
   };
 
   componentDidMount() {
@@ -16,15 +17,11 @@ class Home extends Component {
         const { history } = this.props;
         history.push("/login");
       } else {
-        this.setState(
-          {
-            logged: resStatus.logged,
-            allPosts: resStatus.allPosts
-          },
-          () => {
-            console.log(this.state);
-          }
-        );
+        this.setState({
+          logged: resStatus.logged,
+          allPosts: resStatus.allPosts,
+          id: resStatus.id
+        });
       }
     });
   }
@@ -32,7 +29,13 @@ class Home extends Component {
     const { allPosts } = this.state;
     const posts = allPosts
       ? allPosts.map(element => (
-          <Post key={element.id} title={element.title} body={element.body} />
+          <Post
+            key={element.id}
+            post_id={element.id}
+            title={element.title}
+            body={element.body}
+            id={this.state.id}
+          />
         ))
       : "Loading...";
 
