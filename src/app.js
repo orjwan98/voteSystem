@@ -6,8 +6,8 @@ const routes = require("./routes/index.js");
 const cookieparser = require("cookie-parser");
 
 app.use(express.static(path.join(__dirname, "..", "client", "build")));
-app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieparser());
 app.use(routes);
 app.get("*", (req, res) => {
