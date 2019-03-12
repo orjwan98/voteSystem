@@ -8,8 +8,7 @@ if (!DATABASE_URL) {
 }
 
 const option = {
-  connectionString: DATABASE_URL
+  connectionString: DATABASE_URL,
+  ssl: true
 };
 module.exports = new Pool(option);
-
-// ssl: true
